@@ -101,7 +101,7 @@ function deleteC(i, j) {
 }
 
 deleteC(0, 2);
-console.log("hi");
+
 window.onload = () => {
   // main();
 };
