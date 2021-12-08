@@ -1,28 +1,28 @@
 const cards = [
   { name: "A" },
   { name: "B" },
-  { name: "C" },
-  { name: "D" },
-  { name: "E" },
-  { name: "F" },
-  { name: "G" },
-  { name: "H" },
-  { name: "I" },
-  { name: "J" },
-  { name: "K" },
-  { name: "L" },
+  // { name: "C" },
+  // { name: "D" },
+  // { name: "E" },
+  // { name: "F" },
+  // { name: "G" },
+  // { name: "H" },
+  // { name: "I" },
+  // { name: "J" },
+  // { name: "K" },
+  // { name: "L" },
   { name: "A" },
   { name: "B" },
-  { name: "C" },
-  { name: "D" },
-  { name: "E" },
-  { name: "F" },
-  { name: "G" },
-  { name: "H" },
-  { name: "I" },
-  { name: "J" },
-  { name: "K" },
-  { name: "L" },
+  // { name: "C" },
+  // { name: "D" },
+  // { name: "E" },
+  // { name: "F" },
+  // { name: "G" },
+  // { name: "H" },
+  // { name: "I" },
+  // { name: "J" },
+  // { name: "K" },
+  // { name: "L" },
 ];
 
 function randomRange(a, b) {
@@ -49,14 +49,38 @@ function shuffle(arr) {
 
 let arrCards = [];
 
+let counter = 0;
+
 const cardClicked = (evn) => {
+  if (arrCards.length >= 2) {
+    return;
+  }
   // console.log(evn.target.innerHTML);
   const cardE1 = evn.target;
   const idx = cardE1.id;
   cardE1.innerHTML = cards[idx].name;
-  arrCards.push(cards[idx]);
   console.log(arrCards);
-  if (arrCards === 2) {
+
+  if (arrCards.length <= 1) {
+    arrCards.push(idx);
+  }
+  if (match(cards, arrCards[0], arrCards[1])) {
+    arrCards = [];
+    counter++;
+    if (counter === cards.length / 2) {
+      alert("you win");
+      document.getElementById("board").innerHTML = "";
+      main();
+    }
+    return;
+  } else {
+    setTimeout(() => {
+      arrCards.forEach((id) => {
+        const cardElement = document.getElementById(id);
+        cardElement.innerHTML = "";
+      });
+      arrCards = [];
+    }, 1000);
   }
 };
 
@@ -89,7 +113,7 @@ function main() {
 
 main();
 
-function match(i, j) {
+function match(arr, i, j) {
   return i != j && arr[i].name == arr[j].name;
 }
 
